@@ -79,7 +79,7 @@
       <!-- Kelurahan/Desa -->
       <div>
         <label for="kelurahan">Kelurahan/Desa</label>
-        <select id="kelurahan" v-model="formData.kelurahan" required>
+        <select id="kelurahan" v-model="formData.kelurahan" @change="onKelurahanChange" required>
           <option value="" disabled selected>Pilih Kelurahan</option>
           <option v-for="kelurahan in kelurahanList" :key="kelurahan.id" :value="kelurahan.id">{{ kelurahan.name }}</option>
         </select>
@@ -242,6 +242,11 @@ export default {
       this.kecamatanName = selectedKecamatan ? selectedKecamatan.name : '';
       this.fetchKelurahan();
     },
+    onKelurahanChange() {
+      const selectedKelurahan = this.kelurahanList.find(kel => kel.id === this.formData.kelurahan);
+      this.kelurahanName = selectedKelurahan ? selectedKelurahan.name : '';
+      this.fetchKelurahan();
+    },
     onFileChange(event, field) {
       const file = event.target.files[0];
       if (file && file.size <= 2 * 1024 * 1024) {
@@ -294,31 +299,117 @@ export default {
 };
 </script>
 
-<!-- <style>
+<style>
 body {
   font-family: Arial, sans-serif;
+  background-color: #f4f7f6;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
-form {
-  max-width: 600px;
-  margin: 0 auto;
-}
-label {
-  display: block;
-  margin-top: 10px;
-}
-input, select {
+
+#app {
+  background-color: #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 40px;
   width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
+  max-width: 600px;
+  box-sizing: border-box;
 }
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="file"]:focus,
+select:focus {
+  border-color: #6c63ff;
+  outline: none;
+}
+
 button {
-  padding: 10px 20px;
-  background-color: #28a745;
+  padding: 12px 20px;
+  background-color: #6c63ff;
   color: white;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
+
 button:hover {
-  background-color: #218838;
+  background-color: #5a55d6;
 }
-</style> -->
+
+pre {
+  background-color: #f0f0f0;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #333;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+button[type="submit"]:hover {
+  background-color: #4f48c4;
+}
+
+div {
+  margin-bottom: 10px;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 30px;
+}
+
+
+  button {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+
+</style>
