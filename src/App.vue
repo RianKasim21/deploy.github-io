@@ -5,7 +5,7 @@
     <form v-if="!submitted" @submit.prevent="submitForm">
       <!-- Nama -->
       <div>
-        <label for="nama">Nama</label>
+        <label for="nama">Nama Lengkap</label>
         <input type="text" id="nama" v-model="formData.nama" required />
       </div>
 
